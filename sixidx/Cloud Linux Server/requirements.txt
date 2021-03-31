@@ -1,4 +1,4 @@
 Flask==1.0.2
 flask_restful
-lxml==4.3.4
+lxml==4.6.3
 requests==2.18.4
