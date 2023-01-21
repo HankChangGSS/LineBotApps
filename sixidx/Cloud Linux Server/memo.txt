@@ -1,0 +1,18 @@
+程式碼 app.py 有異動
+就要重建網站
+在此層級執行以下command
+
+sudo docker compose build
+sudo docker compose up
+
+
+2023/01/21 flask復活筆記
+
+	\BashScript\docker.sh
+	是第一次建立  server 才需要執行
+	主要是安裝 docker ce + docker compose
+	安裝完才有辦法執行 compose build / compse up
+
+	docker.sh 內容是從 docker 官網取得，但執行過程有出現問題
+	有再參考以下網站改寫
+	https://askubuntu.com/questions/1030179/package-docker-ce-has-no-installation-candidate-in-18-04

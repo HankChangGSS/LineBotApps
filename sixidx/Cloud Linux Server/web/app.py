@@ -18,20 +18,28 @@ def getAllCmkeyHtml(co_id):
     return response_html
 
 def GetAspxFromCmkind(cmkind):
-    aspx = "f000" + cmkind + ".aspx"   # f00029.aspx, f00041.aspx, f00042.aspx, ...
+    # aspx = "f000" + cmkind + ".aspx"   # f00029.aspx, f00041.aspx, f00042.aspx, ...
+    aspx = "f000" + cmkind
     return aspx
 
-def GetCmkeyFromHtml(response_html, cmkind):
+def GetCmkeyFromHtml(co_id, response_html, cmkind):
     html = etree.HTML(response_html)
+    #f = open('/home/hcc/桌面/web/response_html.html', 'w')
+    #f.write(response_html)
+    #f.close()
     aspx = GetAspxFromCmkind(cmkind)
-    cmkey = urllib.parse.quote(html.xpath('//a[contains(@href, "/finance/' + aspx + '")]//@cmkey')[0]).replace('/','%2F')
+    print('//a[contains(@href, "/finance/' + co_id + '/' + aspx + '")]//@cmkey')
+    cmkey = urllib.parse.quote(html.xpath('//a[contains(@href, "/finance/' + co_id + '/' + aspx + '")]//@cmkey')[0]).replace('/','%2F')
     return cmkey
 
 def GetCmkeyArray(co_id, cmkind):
     cmkey_html = getAllCmkeyHtml(co_id)
+    #f = open('/home/hcc/桌面/web/cmkey.html', 'w')
+    #f.write(cmkey_html)
+    #f.close()
     cmkey = []
     for k in cmkind:
-        cmkey.append( GetCmkeyFromHtml(cmkey_html, k) )
+        cmkey.append( GetCmkeyFromHtml(co_id, cmkey_html, k) )
     return cmkey
 
 '''測試01.===================================================
@@ -44,7 +52,7 @@ print(cmkey)
 
 def GetActionFromCmkind(cmkind):
     action = ''
-    if(cmkind=='29'):
+    if(cmkind=='29'): #營收盈餘
         action = 'GetStockRevenueSurplus'
     elif(cmkind=='41'):
         action = 'GetIncomeStatement'
